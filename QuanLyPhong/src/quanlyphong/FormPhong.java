@@ -420,23 +420,40 @@ public class FormPhong extends javax.swing.JFrame {
     }                                     
 
     private void btn_timkiemActionPerformed(java.awt.event.ActionEvent evt) {                                            
+//
+//        if (txt_timkiem.getText().equals("")) {
+//            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên người thuê!");
+//        } else {
+//            for (Phong x : listPhong) {
+//                if (x.getNguoiThue().equalsIgnoreCase(txt_timkiem.getText())) {
+//                    txt_sophong.setText(x.getSoPhong());
+//                    txt_diachi.setText(x.getDiaChi());
+//                    if (x.getTinhTrang() == 1) {
+//                        rd_chuathue.setSelected(true);
+//                    } else {
+//                        rd_dathue.setSelected(true);
+//                    }
+//                    txt_nguoithue.setText(x.getNguoiThue());
+//                    cb_songuoi.setSelectedItem(x.getSoNguoi());
+//                }
+//            }
+//        }
 
-        if (txt_timkiem.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên người thuê!");
-        } else {
-            for (Phong x : listPhong) {
-                if (x.getNguoiThue().equalsIgnoreCase(txt_timkiem.getText())) {
-                    txt_sophong.setText(x.getSoPhong());
-                    txt_diachi.setText(x.getDiaChi());
-                    if (x.getTinhTrang() == 1) {
-                        rd_chuathue.setSelected(true);
-                    } else {
-                        rd_dathue.setSelected(true);
-                    }
-                    txt_nguoithue.setText(x.getNguoiThue());
-                    cb_songuoi.setSelectedItem(x.getSoNguoi());
-                }
+
+    String ten = txt_timkiem.getText();
+    ArrayList<Phong> listPhongOP = new ArrayList<>();
+        for (Phong phong : listPhong) {
+            if(phong.getNguoiThue().contains(ten)){
+                listPhongOP.add(phong);
             }
+        }
+        
+        defaultTableModel = (DefaultTableModel) tb_table.getModel();
+        defaultTableModel.setRowCount(0);
+        for (Phong x : listPhongOP) {
+            defaultTableModel.addRow(new Object[]{
+                x.getSoPhong(), x.getDiaChi(), x.getNguoiThue(), getTenTinhTrang(x.getTinhTrang()), x.getSoNguoi()
+            });
         }
     }                                           
 
